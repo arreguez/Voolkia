@@ -25,9 +25,8 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS PRODUCTOS
 
 # Inserto algunos datos desde un CSV.
 with open('dataML.csv','r') as datosML: 
-    datos_a_cargar = csv.DictReader(datosML) # comma is default delimiter
+    datos_a_cargar = csv.DictReader(datosML)
     for i in datos_a_cargar:
-       #print (f"row {i}")
        arrayDB = [(i['SELLER_ID'], i['SITE_ID'], i['ITEM_ID'], i['TITLE_ITEM'], i['CATEGORY_ID'], i['NAME'])]
        cursor.executemany("INSERT INTO PRODUCTOS ( \
                                        SELLER_ID, SITE_ID, ITEM_ID, TITLE_ITEM, CATEGORY_ID, NAME)  \
@@ -40,10 +39,6 @@ siteid = input("Site ID? (Enter=MLA): ") or "MLA"
 
 query = "SELECT SELLER_ID, TITLE_ITEM, CATEGORY_ID, NAME \
          FROM PRODUCTOS WHERE SELLER_ID = {} AND SITE_ID == '{}'".format(seller, siteid)
-
-#print (query)
-
-
 
 productos = cursor.execute(query).fetchall()
 
